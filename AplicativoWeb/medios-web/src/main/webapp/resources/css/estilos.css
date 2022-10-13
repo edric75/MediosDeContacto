@@ -1,0 +1,136 @@
+
+      .posision { 
+  padding: 0px 0px 0px 44%;
+}
+
+
+.section1{
+  display:none;
+}
+
+
+.divinputR{
+  padding: 0% 0% 0% 9%;
+  border-radius: 90%;
+}
+
+.inputP{
+ /*  width: 50.5%; */
+  width:90%;
+}
+
+.inputR{
+  border-radius: 5%;
+  /* width: 60%; */
+  
+}
+
+.spanc{
+  width: 119px;
+display:block;
+text-align: inherit;
+font-size: 12px;
+}
+
+.spancc{
+  width: 110px;
+display:block;
+text-align: inherit;
+font-size: 12px;
+}
+
+
+.inputC{
+  width: 78%;
+  background-color: white;
+}
+
+.inputCc{
+  width: 29%;
+  background-color: white;
+
+}
+
+
+.table {
+  font-size: 72%;
+  text-align: center;
+  width: 99%;
+}
+
+.card-body {
+  padding: 0;
+}
+.jumbotron {
+  background-color: rgb(243, 240, 240);
+  padding: 1% 9% 0% 0%;
+}
+
+.jumbotron2 {
+  background-color: rgb(243, 240, 240);
+  padding: 1% 0% 0% 1%;
+}
+
+.card {
+width: 110%;
+}
+
+.collapseThree{
+padding: 0.5% 0.5% 0.5% 0.5%;}
+
+body{
+  background-color: white;
+}
+
+
+.ocultar{
+  display: none;
+}
+
+#regresar{
+	float: right;
+	margin-top: -41px;
+}
+
+.overlay {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: #222;
+    opacity:0.7;
+}
+
+.overlay__inner {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.overlay__content {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.spinner {
+    width: 75px;
+    height: 75px;
+    display: inline-block;
+    border-width: 2px;
+    border-color: rgba(255, 255, 255, 0.05);
+    border-top-color: #fff;
+    animation: spin 1s infinite linear;
+    border-radius: 100%;
+    border-style: solid;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration debug="true"
+	xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+	<appender name="fout" class="org.apache.log4j.RollingFileAppender">
+	   <param name="append" value="false" />
+	   <param name="maxFileSize" value="1000MB" />
+	   <param name="maxBackupIndex" value="5" />
+<!-- 	   <param name="file" value="/var/opt/Soa/Imp_internos/Dev_compen/Dev_com_manuales/Mic90376/logs/MediosContactoWeb.log" /> -->
+	   <param name="file" value="/var/opt/Soa/Serv_contribuyente/Idc/Medios_contacto/MediosContactoWeb/logs/MediosContactoWeb.log" />
+	   <layout class="org.apache.log4j.PatternLayout">
+		<param name="ConversionPattern" 
+			value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n" />
+	   </layout>
+	</appender>
+
+	<root>
+		<level value="ALL" />
+		<appender-ref ref="fout" />
+	</root>
+
+</log4j:configuration>

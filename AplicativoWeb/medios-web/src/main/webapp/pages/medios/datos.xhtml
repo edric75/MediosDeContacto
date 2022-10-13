@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>Medios de Contacto</title>
+	<meta charset="utf-8" />
+	
+	
+	<link rel="stylesheet" href="../../resources/css/bootstrap.css" />
+	<link rel="stylesheet" href="../../resources/css/estilosDatos.css" />
+    <link rel="stylesheet" href="../../resources/css/dataTables.css"/>
+        
+        
+        <script src="../../resources/js/jquery.min.js"></script>  
+        
+        <script src="../../resources/js/jquery.dataTables.min.js"></script>  
+        <script src="../../resources/js/bootstrap.js"></script>  
+        <script src="../../resources/js/popper.js"></script>  
+        <script src="../../resources/js/iconos.js"></script>  
+        
+</h:head>
+<h:body>
+<f:event type="preRenderView" listener="#{oauthMB.validarSesion}"/> 
+<f:event type="preRenderView" listener="#{facesContext.externalContext.response.setHeader('Cache-Control', 'no-cache, no-store')}" />
+<f:event type="preRenderView" listener="#{facesContext.externalContext.response.setHeader('X-Content-Type-Options', 'nosniff')}" />
+<f:event type="preRenderView" listener="#{facesContext.externalContext.response.setHeader('X-XSS-Protection', '1; mode=block')}" />
+<f:event type="preRenderView" listener="#{facesContext.externalContext.response.setHeader('X-Frame-Options', 'SAMEORIGIN')}" />
+<f:event type="preRenderView" listener="#{facesContext.externalContext.response.setHeader('Content-Security-Policy', 'self, unsafe-inline, unsafe-eval')}" />
+<f:event type="preRenderView" listener="#{facesContext.externalContext.response.setHeader('Strict-Transport-Security', 'max-age=31536000, includeSubDomains')}" />
+   
+    
+    <nav class="navbar navbar-expand-sm  navbar-dark">
+        <ul class="navbar-nav" style='padding: 0% 0% 0% 5%;'>
+            <li class="nav-item">
+              <h3>Medios de Contacto</h3>
+            </li>
+        </ul>
+        <div style="padding: 0% 0% 0% 27%;">
+            <img class="center" src="../../resources/img/logo.png" alt="Sat img"  width="500" height="70"/>
+        </div>
+    </nav>
+    <div class="text-center">
+        <input type="hidden" id="rfcV" value="#{busquedaMB.rfc}"   />
+        <input type="hidden" id="curpV" value="#{busquedaMB.curp}" />
+        <input type="hidden" id="emailV" value="#{busquedaMB.correo}" />
+                      
+    </div>
+    <div id="section" class="container-fluid"  >
+        <div class="jumbotron3">
+            <div class="container">
+                <div id="accordion">
+                    <nav class="navbar sticky-top navbar-light bg-light" style="width: 113%;">
+                        <p style="width: 43%;" class="rfcnom">RFC: #{busquedaMB.rfc2} <br/> #{busquedaMB.nombreRazon}: #{busquedaMB.nombre} #{busquedaMB.apellidoPaterno} #{busquedaMB.apellidoMaterno}</p> 
+                        <p  class="curpestatus">CURP: #{busquedaMB.curp2} <br/> Estatus: #{busquedaMB.estatus}</p>
+                        <p class="idfecha">ID de contribuyente: #{busquedaMB.idContribuyente} <br/> Fecha registro MC DWH: #{busquedaMB.fechaDWH}  <br/></p> <br/><br/>
+
+                        <div class="btn-group" style="padding: 0% 0% 0% 23%;" >
+                        <button id="boton1" data-status="0" type="button" onclick="functionocultar6()" class="btn btn-default  botonEsti ">Contribuyente</button>
+                        <button id="boton4" data-status="0" type="button" onclick="functionocultar9()" class="btn btn-default  botonEsti" >Email</button>
+                        <button id="boton5" data-status="0" type="button"  onclick="functionocultar10()" class="btn btn-default  botonEsti" >Teléfono</button>                        
+                        <button id="boton3" data-status="0"  type="button" onclick="functionocultar8()" class="btn btn-default  botonEsti">Régimen</button>                        
+                        <button id="boton2" data-status="0" type="button" onclick="functionocultar7()" class="btn btn-default  botonEsti">Autentificación</button>
+            </div>
+            </nav>
+
+            
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-10 col-8">
+                                    <div class="centradoCuerpo" >
+                                        <div class="jumbotron  jumbotron2 "  id="datosGenerales">
+                                            <h3 class="text-center">Contribuyente</h3><br/>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="input-group mb-3">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text spanc">RFC:</span>
+                                                            </div>
+                                                            <input type="text" class=" inputC" value="#{busquedaMB.rfc2}" style="background-color: #e9ecef;"   disabled="true" />
+                                                        </div>
+                                                    </div>
+                        
+                                                    <div class="col">
+                                                        <div class="input-group mb-3">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text spanc">CURP:</span>
+                                                            </div>
+                                                            <input type="text" class="inputC" value="#{busquedaMB.curp2}"  style="background-color: #e9ecef;" disabled="true" /> 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                <div class="col">
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text spanc">#{busquedaMB.nombreRazon}</span>
+                                                         </div>
+                                                         <input type="text" class="inputC" value="#{busquedaMB.nombre}"  style="background-color: #e9ecef;" disabled="true" />
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="col">
+                                                     <div class="input-group mb-3">
+                                                         <div class="input-group-prepend">
+                                                             <span class="input-group-text spanc">Tipo de Persona:</span>
+                                                         </div>
+                                                         <input type="text" class="inputC" value="#{busquedaMB.idTipoPersona}"  style="background-color: #e9ecef;" disabled="true" />
+                                                     </div>
+                                                 </div>
+                                         
+                                    </div>
+                                       <div class="row">
+                                        <div class="col">
+                                             <div class="input-group mb-3">
+                                                 <div class="input-group-prepend">
+                                                     <span class="input-group-text spanc">Apellido paterno:</span>
+                                                 </div>
+                                                 <input type="text" id="apaGuion" class="inputC" value="#{busquedaMB.apellidoPaterno}"  style="background-color: #e9ecef;" disabled="true" />
+                                             </div>
+                                         </div>
+                        
+                                         <div class="col">
+                                             <div class="input-group mb-3">
+                                                 <div class="input-group-prepend">
+                                                     <span class="input-group-text spanc">Estatus:</span>
+                                                 </div>
+                                                 <input type="text" class="inputC" value="#{busquedaMB.estatus}"  style="background-color: #e9ecef;"  disabled="true"/>
+                                             </div>
+                                         </div>
+                                    </div>     
+                                    <div class="row">
+                                        <div class="col">
+                                             <div class="input-group mb-3">
+                                                 <div class="input-group-prepend">
+                                                     <span class="input-group-text spanc">Apellido materno:</span>
+                                                 </div>
+                                                 <input type="text" id="amaGuion" class="inputC" value="#{busquedaMB.apellidoMaterno}"  style="background-color: #e9ecef;" disabled="true" />
+                                             </div>
+                                         </div>
+                        
+                                         <div class="col">
+                                             <div class="input-group mb-3">
+                                                 <div class="input-group-prepend">
+                                                     <span class="input-group-text spanc">Fecha inicio:</span>
+                                                 </div>
+                                                 
+                                                
+                                                 <input type="text" class="inputC" value="#{busquedaMB.fechaInicioOp}"  style="background-color: #e9ecef;" disabled="true" />
+                                             </div>
+                                         </div>
+                                         
+                                    </div>
+                        
+                                    <div class="row">
+                                        <div class="col">
+                                             <div class="input-group mb-3">
+                                                 <div class="input-group-prepend">
+                                                     <span class="input-group-text spanc">Calle:</span>
+                                                 </div>
+                                                 <input type="text" class="inputC" value="#{busquedaMB.calle}"  style="background-color: #e9ecef;" disabled="true" />
+                                             </div>
+                                         </div>
+                        
+                                         <div class="col">
+                                             <div class="input-group mb-3">
+                                                 <div class="input-group-prepend">
+                                                     <span class="input-group-text spanc">Asentamiento:</span>
+                                                 </div>
+                                                 <input type="text" class="inputC" value="#{busquedaMB.asentamiento}"  style="background-color: #e9ecef;" disabled="true" />
+                                             </div>
+                                         </div>
+                                         
+                                    </div>
+                        
+                                    <div class="row">
+                                        <div class="col">
+                                             <div class="input-group mb-3">
+                                                 <div class="input-group-prepend">
+                                                     <span class="input-group-text spancc">Número exterior:</span>
+                                                 </div>
+                                                 <input type="text" class="inputCc" value="#{busquedaMB.numeroExterior}"  style="background-color: #e9ecef;" disabled="true" />
+                                                 
+                                                 <div class="input-group-prepend" style="padding: 0% 0% 0% 2%;">
+                                                    <span class="input-group-text spancc" >Número interior:</span>
+                                                </div>
+                                                <input type="text" class="inputCc" value="#{busquedaMB.numeroInterior}"  style="background-color: #e9ecef;" disabled="true" />
+                                             </div>
+                                         </div>
+                        
+                                         <div class="col">
+                                             <div class="input-group mb-3">
+                                                 <div class="input-group-prepend">
+                                                     <span class="input-group-text spanc">Referencia:</span>
+                                                 </div>
+                                                 <input type="text" class="inputC" value="#{busquedaMB.referencia}"  style="background-color: #e9ecef;"  disabled="true"/>
+                                             </div>
+                                         </div>
+                                    </div>
+                                            
+                                                                          <div class="row">
+                                        <div class="col">
+                                             <div class="input-group mb-3">
+                                                 <div class="input-group-prepend">
+                                                     <span class="input-group-text spanc">Colonia:</span>
+                                                 </div>
+                                                 <input type="text" class="inputC" value="#{busquedaMB.colonia}"  style="background-color: #e9ecef;"  disabled="true"/>
+                                             </div>
+                                         </div>
+                        
+                                         <div class="col">
+                                             <div class="input-group mb-3">
+                                                 <div class="input-group-prepend">
+                                                     <span class="input-group-text spanc">Entre la calle:</span>
+                                                 </div>
+                                                 <input type="text" class="inputC" value="#{busquedaMB.entreLaCalle}"  style="background-color: #e9ecef;"  disabled="true"/>
+                                             </div>
+                                         </div>
+                                         
+                                    </div>
+                        
+                                    <div class="row">
+                                        <div class="col">
+                                             <div class="input-group mb-3">
+                                                 <div class="input-group-prepend">
+                                                     <span class="input-group-text spanc">Codigo postal:</span>
+                                                 </div>
+                                                 <input type="text" class="inputC" value="#{busquedaMB.codigoPostal}"  style="background-color: #e9ecef;"  disabled="true"/>
+                                             </div>
+                                         </div>
+                        
+                                         <div class="col">
+                                             <div class="input-group mb-3">
+                                                 <div class="input-group-prepend">
+                                                     <span class="input-group-text spanc">Calle:</span>
+                                                 </div>
+                                                 <input type="text" class="inputC" value="#{busquedaMB.ylaCalle}"   style="background-color: #e9ecef;"  disabled="true"/>
+                                             </div>
+                                         </div>
+                                         
+                                    </div>
+                        
+                                    <div class="row">
+                                        <div class="col">
+                                             <div class="input-group mb-3">
+                                                 <div class="input-group-prepend">
+                                                     <span class="input-group-text spanc">Entidad federativa:</span>
+                                                 </div>
+                                                 <input type="text" class="inputC" value="#{busquedaMB.entidadFederativa}"  style="background-color: #e9ecef;"  disabled="true"/>
+                                             </div>
+                                         </div>
+                        
+                                         <div class="col">
+                                             <div class="input-group mb-3">
+                                                 <div class="input-group-prepend">
+                                                     <span class="input-group-text spanc">Municipio:</span>
+                                                 </div>
+                                                 <input type="text" class="inputC" value="#{busquedaMB.municipio}"   style="background-color: #e9ecef;"  disabled="true"/>
+                                             </div>
+                                         </div>
+                                         
+                                    </div>
+                        
+                                    <div class="row">
+                                        <div class="col">
+                                             <div class="input-group mb-3">
+                                                 <div class="input-group-prepend">
+                                                     <span class="input-group-text spanc">Fecha alta:</span>
+                                                 </div>
+                                                 <input type="text" class="inputC" value="#{busquedaMB.fechaRegistro}"   style="background-color: #e9ecef;"  disabled="true"/>
+                                             </div>
+                                         </div>
+                        
+                                          <div class="col">
+                                             <div class="input-group mb-3">
+                                                 <div class="input-group-prepend">
+                                                     <span class="input-group-text spanc" style="width: 100%;">Situación del Domicilio:</span>
+                                                 </div>
+                                                 <input type="text" class="inputC" value="#{busquedaMB.situaDom}"   style="background-color: #e9ecef; width: 69%;"  disabled="true"/>
+                                             </div>
+                                         </div>
+                                         
+                                    </div>
+                        
+                                                                                         <div class="row">
+                                        <div class="col">
+                                             <div class="input-group mb-3">
+                                                 <div class="input-group-prepend">
+                                                     <span class="input-group-text spanc" style="width: 100%;">Situación del Contribuyente en el Domicilio</span>
+                                                 </div>
+                                                 <input type="text" class="inputC" value="#{busquedaMB.locContriDom}"   style="background-color: #e9ecef; width: 51%;"  disabled="true"/>
+                                             </div>
+                                         </div>
+                        
+                                           <div class="col">
+                                             <div class="input-group mb-3">
+                                                 <div class="input-group-prepend">
+                                                     <span class="input-group-text spanc" style="width: 100%;">Detalle de Situación del Contribuyente en el Domicilio:</span>
+                                                 </div>
+                                                 <input type="text" class="inputC" value="#{busquedaMB.detLocContrDom}"   style="background-color: #e9ecef; width: 42%;"  disabled="true"/>
+                                             </div>
+                                         </div>
+                                         
+                                    </div>
+
+                                </div> 
+                                        
+                                 
+                                <div class="jumbotron jumbotron2 ocultar" id="autentifica">
+                                                        <h3 class="text-center">Autentificación</h3><br/>
+                                <div class="spinner-border text-primary" id="spinerAutentificacion" style="display:none;"></div>
+                               
+                                <div id="tablePrint2" style="display:none" >
+
+                                  </div>
+                                <br/>
+                        </div>
+                          
+                        <div class="jumbotron jumbotron2 ocultar" id="regimen">
+                        <h3 class="text-center">Régimen</h3><br/>
+                          <div class="spinner-border text-primary" id="spinerRegimen" style="display:none"></div> 
+                            <div id="tablePrint" style="display:none">
+                            </div>
+                          <br/>
+                        </div>                                             
+                        <div class="jumbotron jumbotron2 ocultar" id="email" style="padding: 1% 1% 0%;">
+                            <h3 class="text-center">Email</h3><br/>
+                      <p id="goldenEmail" class="text-center" style="display:none">Golden Record: </p>
+                                                  <div class="card-header"  >
+                      Información de Email
+                        <div class="spinner-border text-primary text-center" id="spinerInfoEMail" style="display:none"></div>
+						
+                      
+                <div id="tablePrint3" class="scroll_horizontal"></div>
+                  </div>                 
+                
+                   <div class="card-header"  >
+                      Verificación de Email
+                       <div class="spinner-border text-primary text-center" id="spinerInfoVEMail" style="display:none"></div>
+                                         
+                       <div id="tablePrint4" ></div>
+                  </div>
+                      <div class="card-header">
+                      Acuse Email
+                      
+                      <div class="spinner-border text-primary text-center" id="spinerAcuseEMail" style="display:none;"></div>
+                        
+                      <div id="tablePrint5" ></div>
+
+                  </div> 
+                          </div>
+                       </div>                 
+                       
+                                    
+          <div class="jumbotron jumbotron2 ocultar" id="telefono" style="padding: 1% 1% 0%;width: 137%;">
+                            <h3 class="text-center">Teléfono</h3><br/>
+                            <p id="goldenTelefono" class="text-center" style="display:none">Golden Record: </p>
+                    <div class="card-header" >
+                        Información de Teléfono
+                        <div class="spinner-border text-primary text-center" id="spineraInfoTelefono" style="display:none"></div>
+                       
+                        <div id="tablePrint6"></div>
+                    </div>          
+                    <div class="card-header" >
+                        Verificación de Teléfono
+                        <div class="spinner-border text-primary text-center" id="spinerVeriTelefono" style="display:none;"></div>
+                       
+                        <div id="tablePrint7"></div>
+                    </div>                      
+                    <div class="card-header">
+                        
+                       Acuse Teléfono 
+                      <div class="spinner-border text-primary text-center" id="spinerAcuseTelefono" style="display:none;"></div>
+                       
+                        <div id="tablePrint8" ></div>
+                    </div>     <br/>
+                     </div>
+                                             </div>     
+                                
+                                        
+ </div>
+                             <input type="hidden" id="custId" value="#{busquedaMB.ip}"/>
+
+                        </div>                               
+                                            
+                 
+                                            
+                    <div class="posision">
+<form id="indexForm" name="indexForm" method="post" enctype="application/x-www-form-urlencoded" action="index.xhtml">
+<button id="indexForm:buscar" name="indexForm:buscar" class=" btn btn-primary" type="submit" role="button" aria-disabled="false"><span class="ui-button-text ui-c">Regresar</span></button>
+  </form>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../../resources/js/datosJS.js"></script>
+ 
+    <script> 
+    $(document).ready(function () {
+      var nombres = "#{busquedaMB.nombre} #{busquedaMB.apellidoPaterno} #{busquedaMB.apellidoMaterno}";
+      if(nombres.length > 48){
+        $('.curpestatus').css('padding', '0% 0% 2% 0%');
+	$('.idfecha').css('padding', '0% 0% 2% 1%');
+    }else if(nombres.length > 100){
+        $('.curpestatus').css('padding', '0% 0% 4% 0%');
+	$('.idfecha').css('padding', '0% 0% 4% 1%');
+    }
+    });
+      
+  </script>
+</h:body>
+</html>

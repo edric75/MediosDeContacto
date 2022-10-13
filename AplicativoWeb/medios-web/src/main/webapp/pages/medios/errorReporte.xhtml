@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <title>Búsqueda de RFC</title>
+        <meta charset="utf-8" />
+
+
+        <link rel="stylesheet" href="../../resources/css/bootstrap.css" />
+        <link rel="stylesheet" href="../../resources/css/estilos.css" />
+        
+        <script src="../../resources/js/jquery.min.js"></script>  
+
+      
+
+
+    </h:head>
+    <h:body>
+        <f:event type="preRenderView" listener="#{facesContext.externalContext.response.setHeader('Cache-Control', 'no-cache, no-store')}" />
+        <f:event type="preRenderView" listener="#{facesContext.externalContext.response.setHeader('X-Content-Type-Options', 'nosniff')}" />
+        <f:event type="preRenderView" listener="#{facesContext.externalContext.response.setHeader('X-XSS-Protection', '1; mode=block')}" />
+        <f:event type="preRenderView" listener="#{facesContext.externalContext.response.setHeader('X-Frame-Options', 'SAMEORIGIN')}" />
+		<f:event type="preRenderView" listener="#{facesContext.externalContext.response.setHeader('Content-Security-Policy', 'self, unsafe-inline, unsafe-eval;connect-src self')}" />
+		<f:event type="preRenderView" listener="#{facesContext.externalContext.response.setHeader('Strict-Transport-Security', 'max-age=31536000, includeSubDomains')}" />
+
+        <nav class="navbar navbar-expand-sm  navbar-dark">
+            <ul class="navbar-nav" style='padding: 0% 0% 0% 18%;'>
+                <li class="nav-item">
+                    <h3>Medios de contacto</h3>
+                </li>
+            </ul>
+            <div style="padding: 0% 0% 0% 23%;">
+                <img class="center" src="../../resources/img/logo.png" alt="Sat img"  width="500" height="70"/>
+            </div>
+        </nav>
+        <div class="container">
+
+
+
+          <div id="divError" >
+		<br/><br/><br/>
+		<h4>
+			<p:outputLabel  id="folio" value="Ocurrio un error al consultar al servicio Medios de Contacto, inténtelo más tarde" />
+		</h4>
+
+	</div>
+
+        </div>
+
+     
+
+    </h:body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <title>Medios de Contacto Web</title>
+        <meta charset="utf-8" />
+
+
+        <link rel="stylesheet" href="../../resources/css/bootstrap.css" />
+        <link rel="stylesheet" href="../../resources/css/estilos.css" />
+        <link rel="stylesheet" href="../../resources/css/dataTables.css"/>
+        
+        <script src="../../resources/js/jquery.min.js"></script>  
+        <script src="../../resources/js/jquery.dataTables.min.js"></script>  
+        
+ 
+    </h:head>
+    <h:body>
+	    <f:event type="preRenderView" listener="#{oauthMB.validarSesion}"/> 
+        <f:event type="preRenderView" listener="#{facesContext.externalContext.response.setHeader('Cache-Control', 'no-cache, no-store')}" />
+        <f:event type="preRenderView" listener="#{facesContext.externalContext.response.setHeader('X-Content-Type-Options', 'nosniff')}" />
+        <f:event type="preRenderView" listener="#{facesContext.externalContext.response.setHeader('X-XSS-Protection', '1; mode=block')}" />
+        <f:event type="preRenderView" listener="#{facesContext.externalContext.response.setHeader('X-Frame-Options', 'SAMEORIGIN')}" />
+		<f:event type="preRenderView" listener="#{facesContext.externalContext.response.setHeader('Content-Security-Policy', 'SAMEORIGIN')}" />
+		<f:event type="preRenderView" listener="#{facesContext.externalContext.response.setHeader('Strict-Transport-Security', 'max-age=31536000, includeSubDomains')}" />
+
+        <nav class="navbar navbar-expand-sm  navbar-dark">
+            <ul class="navbar-nav" style='padding: 0% 0% 0% 18%;'>
+                <li class="nav-item">
+                    <h3>Medios de Contacto</h3>
+                </li>
+            </ul>
+            <div style="padding: 0% 0% 0% 23%;">
+                <img class="center" src="../../resources/img/logo.png" alt="Sat img"  width="500" height="70"/>
+            </div>
+        </nav>
+        <div class="container">
+	<div class="row">
+	<div id="seccionBusqueda" class="col-md-6">
+
+            <div id="filtrocheck" style='padding: 0% 0% 4% 0%;'>
+                <h5>Tipo de Búsqueda</h5>
+                <fieldset id="group1">
+                    <legend></legend>
+                    <span>RFC <input type="radio" id="rfcRadio" name="group1"/></span>
+                    <span style='padding: 0% 0% 0% 5%;'>CURP <input type="radio" id="curpRadio" name="group1"/></span>
+                    <span style='padding: 0% 0% 0% 5%;'>EMAIL <input type="radio" id="emailRadio" name="group1"/></span>
+                </fieldset>
+            </div>
+                
+                <div class="errorDiv alert alert-danger  ocultar" role="alert">
+                <h3 class="alert-heading  errorMsg" ></h3>
+                </div>
+                
+        <div class="alert alert-danger quitarR ocultar" role="alert">
+                <h3 class="alert-heading  ocultar" id="ARFC">RFC no encontrado.</h3>
+                <h3 class="alert-heading  ocultar" id="ACURP">CURP no encontrado.</h3>
+                <h3 class="alert-heading  ocultar" id ="AEMAIL">EMAIL no encontrado.</h3>
+                <h3 class="alert-heading  ocultar" id="Aerror">No se aceptan caracteres especiales</h3>
+			    <h3 class="alert-heading  ocultar" id="IDCRFC">El RFC solicitado no está disponible para su consulta</h3>
+                <h3 class="alert-heading  ocultar" id="IDCCURP">El CURP solicitado no está disponible para su consulta</h3>
+                <h3 class="alert-heading  ocultar" id="IDCCOREO">El EMAIL solicitado no está disponible para su consulta</h3>
+        </div>
+            <div class="form-group">
+                <label for="rfc">RFC:</label>
+                <input type="text" class="form-control inputP bloqeuarEspeciales" id="rfc" minlength="12"  maxlength="13" disabled="true"/>
+            </div>
+
+            <div class="form-group">
+                <label for="curp">CURP:</label>
+                <input type="text" class="form-control inputP bloqeuarEspeciales" id="curp" mainlength="18"  maxlength="18" disabled="true"/>
+            </div>
+
+            <div class="form-group">
+                <label for="curp">EMAIL:</label>
+                <input type="email" class="form-control inputP bloqeuarEspeciales" id="correo"  disabled="true"/>
+            </div>
+            
+
+            <div class="posision ">
+                <button type="button" class="btn btn-primary buscar" onclick="login()" >Buscar</button>
+            </div>
+
+        </div>
+        
+        
+        </div>
+        <div class="row">
+	         <div id="seccionResultados" class="col-md-12" style="display:none">
+	        	<h5>Resultados Búsqueda por Email</h5>
+	        	<p>Estos son los contribuyentes asociados al correo electrónico buscado</p>
+	        	<div id="resultadosEmail">
+	        	</div>
+	        	<br></br>	        	<br></br>	        		        	
+	        	<a href="#" id="regresar"><button class="btn btn-primary">Regresar</button></a>	        		        	
+	        </div>
+        </div>
+        
+        </div>
+
+        <div style="display: none;">
+            <h:form id="indexForm" >
+                <p:inputText value="#{busquedaMB.rfc}" id="rfc"></p:inputText>
+                <p:inputText value="#{busquedaMB.curp}" id="curp"></p:inputText>
+                <p:inputText value="#{busquedaMB.correo}" id="correo"></p:inputText>
+                <p:inputText value="#{busquedaMB.busquedaEmail}" id="busquedaEmail"></p:inputText>
+                <p:commandButton id="buscar" action="#{busquedaMB.buscar}" styleClass="ui-button" ajax="false" />
+            </h:form>
+        </div>
+
+	<div id="overlay" class="overlay" style="display:none">
+	    <div class="overlay__inner">
+	        <div class="overlay__content"><span class="spinner"></span></div>
+	    </div>
+	</div>
+               
+        <script src="../../resources/js/indexJS.js"></script>  
+ 	
+
+     	<script>
+
+     	//<![CDATA[ 
+
+                      var ip ="0.0.0.0";
+		function login() {
+                               
+			if(document.getElementById('rfc').value !== ""){
+				validaRFC(ip);				
+			}
+			
+			if(document.getElementById('curp').value !== ""){
+				validateCURP(ip);				
+			}
+			
+			if(document.getElementById('correo').value !== ""){
+				validateMail(ip);				
+			}
+		}
+                
+        
+        $(document).ready(function(){
+                    
+               var error= "";
+               var emailBusqueda = "";
+               error = "#{busquedaMB.errorServidor}";
+               
+               emailBusqueda = "#{busquedaMB.busquedaEmail}";
+               
+              if (error === "rfc") {
+                  $(".quitarR").removeClass("ocultar");
+                  $("#ARFC").removeClass("ocultar");
+                  #{busquedaMB.setErrorServidor("")};
+                  $('.quitarR').delay(1000).fadeOut(100);
+              } else if (error === "curp") {
+                  $(".quitarR").removeClass("ocultar");
+                   $("#ACURP").removeClass("ocultar");
+                  $('.quitarR').delay(1000).fadeOut(100);
+                   #{busquedaMB.setErrorServidor("")};
+              } else if (error === "email") {
+                  $(".quitarR").removeClass("ocultar");
+                  $("#AEMAIL").removeClass("ocultar");
+                  $('.quitarR').delay(1000).fadeOut(100);
+                  #{busquedaMB.setErrorServidor("")};
+              }else if (error === "IDCRFC") {
+                  $(".quitarR").removeClass("ocultar");
+                  $("#IDCRFC").removeClass("ocultar");
+                  $('.quitarR').delay(1000).fadeOut(100);
+                  #{busquedaMB.setErrorServidor("")};
+              }else if (error === "IDCCURP") {
+                  $(".quitarR").removeClass("ocultar");
+                  $("#IDCCURP").removeClass("ocultar");
+                  $('.quitarR').delay(1000).fadeOut(100);
+                  #{busquedaMB.setErrorServidor("")};
+              }else if (error === "IDCCOREO") {
+                  $(".quitarR").removeClass("ocultar");
+                  $("#IDCCOREO").removeClass("ocultar");
+                  $('.quitarR').delay(1000).fadeOut(100);
+                  #{busquedaMB.setErrorServidor("")};
+              }
+              
+              if(emailBusqueda != ""){
+            	  $("#correo").val(emailBusqueda);
+            	  searchEmail();
+              }
+          });
+                
+                
+ 
+		function validaRFC(ip) {
+                    // patron del RFC, persona moral
+		const _rfc_pattern_pm = "^(([A-ZÑ&amp;]{3})([0-9]{2})([0][13578]|[1][02])(([0][1-9]|[12][\\d])|[3][01])([A-Z0-9]{3}))|"
+				+ "(([A-ZÑ&amp;]{3})([0-9]{2})([0][13456789]|[1][012])(([0][1-9]|[12][\\d])|[3][0])([A-Z0-9]{3}))|"
+				+ "(([A-ZÑ&amp;]{3})([02468][048]|[13579][26])[0][2]([0][1-9]|[12][\\d])([A-Z0-9]{3}))|"
+				+ "(([A-ZÑ&amp;]{3})([0-9]{2})[0][2]([0][1-9]|[1][0-9]|[2][0-8])([A-Z0-9]{3}))$";
+		// patron del RFC, persona fisica
+		const _rfc_pattern_pf = "^(([A-ZÑ&amp;]{4})([0-9]{2})([0][13578]|[1][02])(([0][1-9]|[12][\\d])|[3][01])([A-Z0-9]{3}))|"
+				+ "(([A-ZÑ&amp;]{4})([0-9]{2})([0][13456789]|[1][012])(([0][1-9]|[12][\\d])|[3][0])([A-Z0-9]{3}))|"
+				+ "(([A-ZÑ&amp;]{4})([02468][048]|[13579][26])[0][2]([0][1-9]|[12][\\d])([A-Z0-9]{3}))|"
+				+ "(([A-ZÑ&amp;]{4})([0-9]{2})[0][2]([0][1-9]|[1][0-9]|[2][0-8])([A-Z0-9]{3}))$";
+
+			var rfc = document.getElementById('rfc').value;
+			if (rfc.match(_rfc_pattern_pm) || rfc.match(_rfc_pattern_pf)) {
+				document.getElementById('indexForm:rfc').value = rfc;
+                                document.getElementById('indexForm:curp').value = "";
+ 				document.getElementById('indexForm:correo').value = "";              
+ 				 document.getElementById('indexForm:busquedaEmail').value = "";  				
+				document.getElementById('indexForm:buscar').click();
+				return true;
+			} else {
+				$('.errorMsg').html("El RFC ingresado no es válido");
+                $('.errorDiv').fadeIn().delay(5000).fadeOut(2000);
+				return false;
+			}
+		}
+
+		function validateCURP(ip) {
+			var curp = document.getElementById('curp').value;
+			const curp_pattern = "[A-Z][A,E,I,O,U,X][A-Z]{2}[0-9]{2}[0-1][0-9][0-3][0-9][M,H][A-Z]{2}[B,C,D,F,G,H,J,K,L,M,N,Ñ,P,Q,R,S,T,V,W,X,Y,Z]{3}[0-9,A-Z][0-9]";
+
+			if (curp.match(curp_pattern)) {
+                            	document.getElementById('indexForm:rfc').value = "";
+                                document.getElementById('indexForm:curp').value = curp;
+				document.getElementById('indexForm:correo').value = "";
+				document.getElementById('indexForm:busquedaEmail').value = "";                                 
+				document.getElementById('indexForm:buscar').click();
+			} else {
+				$('.errorMsg').html("El CURP ingresado no es válido");
+                $('.errorDiv').fadeIn().delay(5000).fadeOut(2000);
+			}
+
+		}
+		
+		function validateMail(ip){
+			var email = document.getElementById('correo').value;
+			var EMAIL_REGEX = /^\s*[\w\-\+_]+(?:\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(?:\.[\w\-\+_]+)*\s*$/;
+
+			if(email.match(EMAIL_REGEX)){
+                            document.getElementById('indexForm:rfc').value = "";
+                                document.getElementById('indexForm:curp').value = "";
+                document.getElementById('indexForm:busquedaEmail').value = "";                                 
+				document.getElementById('indexForm:correo').value = email;
+                searchEmail();
+			}else{
+				$('.errorMsg').html("El Email ingresado no es válido");
+                $('.errorDiv').fadeIn().delay(5000).fadeOut(2000);
+			}
+			
+		}
+		
+		
+		//]]>
+	</script>
+    </h:body>
+</html>
